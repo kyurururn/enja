@@ -1,0 +1,227 @@
+*{
+    margin:0;  
+}
+
+input[type=text]{
+    font-size: 16px;
+}
+
+:focus{    
+    outline: none;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+  }
+::-webkit-scrollbar-track{
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px #777; 
+}
+::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+a{
+    text-decoration:none;
+}
+
+
+.loader{
+    align-items:center;
+    justify-content:center;
+    background:black;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    z-index:100;
+    position:fixed;
+    color:white;
+    display:flex;
+}
+
+.loader_txt{
+    top:auto;
+    right:auto;
+    bottom:auto;
+    left:auto;
+    font-size:5vh;
+    text-align:left;
+    white-space: nowrap;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+
+
+.head{
+    background-color:black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.head_logo{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.head_logo a{
+    color:white;
+}
+
+
+
+
+.middle{
+    background-color:skyblue;
+    display:flex;
+}
+
+.middle_in{
+    background-image:url("background-4.jpg");
+    background-position:center center;
+    background-attachment:fixed;
+    background-size:cover;
+}
+
+.middle_in_name{
+    font-family: 'Ubuntu', sans-serif;
+    font-size:20px;
+    display:flex;
+    justify-content: center;
+}
+
+.middle_in_txt{
+    display:flex;
+    justify-content: center;
+}
+
+.middle_in_txt_area{
+    height:99%;
+    resize:none;
+    font-family: 'Cousine', monospace;
+}
+
+.middle_in_button{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+}
+
+.middle_in_button_perform{
+    display:inline-block;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    padding-right:0.5em;
+    padding-left:0.5em;
+    background: #668ad8;
+    color:black;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    height:40%;
+    margin-right:5px;
+    margin-left:5px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    cursor:pointer;
+}
+
+.middle_in_button_perform:active{
+    border-bottom: none;
+}
+
+
+
+.middle_out{
+    background-image:url("background-2.jpg");
+    background-position:center center;
+    background-attachment:fixed;
+    background-size:cover;
+    background-color:skyblue;
+}
+
+.middle_out_name{
+    font-family: 'Ubuntu', sans-serif;
+    font-size:20px;
+    display:flex;
+    justify-content: center;
+}
+
+.middle_out_txt{
+    display:flex;
+    justify-content:center;
+}
+
+.middle_out_txt_area{
+    height:97%;
+    background-color:white;
+    font-family: 'Cousine', monospace;
+    border:solid 5px black;
+    border-radius:10px;
+    overflow-y:scroll;
+    overflow-wrap:break-word;
+}
+
+
+.middle_out_button{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+}
+
+.middle_out_button_perform{
+    display:inline-block;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    padding-right:0.5em;
+    padding-left:0.5em;
+    background: #668ad8;
+    color:black;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    height:40%;
+    margin-right:5px;
+    margin-left:5px;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    cursor:pointer;
+}
+
+.middle_out_button_perform:active{
+    border-bottom: none;
+}
+
+.middle_out_button_check{
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+
+.bottom{
+    background-color:black;
+}
+
+.bottom_txt{
+    color:white;
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-end;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.bottom_txt a{
+    color:skyblue;
+}

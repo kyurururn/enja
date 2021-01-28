@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>演者 ~Enja~</title>
+        <link rel="stylesheet" type="text/css" href="css/enja.css">
+        <link rel="icon" type="image/x-icon" href="img/Enja-fabi.png">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+        <script src="js/enja_deco.js"></script>
+        <script src="js/kuromoji/kuromoji.js"></script>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="loader">
+            <div class="loader_txt">Now Loading</div>
+        </div>
+
+        <div class="head">
+            <div class="head_logo"><a href="index.html">Enja</a></div>
+        </div>
+
+        <div class="middle">
+            <div class="middle_in">
+                <div class="middle_in_name">
+                    Enja Editor
+                </div>
+                <div class="middle_in_txt">
+                    <textarea class="middle_in_txt_area" id="input_txt" spellcheck="false"></textarea>
+                </div>
+                <div class="middle_in_button">
+                    <a onclick="sample()" class="middle_in_button_perform">サンプル</a>
+                    <a onclick="document.getElementById('input_txt').value = ''" class="middle_in_button_perform">クリア</a>
+                    <a onclick="enja(document.getElementById('input_txt').value,'exp','debug')" class="middle_in_button_perform">実行</a>
+                </div>
+            </div>
+            <div class="middle_out">
+                <div class="middle_out_name">
+                    Output
+                </div>
+                <div class="middle_out_txt">
+                    <div class="middle_out_txt_area" id="exp"></div>
+                </div>
+                <div class="middle_out_button">
+                    <label class="middle_out_button_check" for="debug">
+                        <input type="checkbox" id="debug">デバッグモード
+                    </label>
+                    <a onclick="document.getElementById('exp').innerHTML = ''" class="middle_in_button_perform">クリア</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom">
+            <div class="bottom_txt">
+                このソフトウェアは<a href="https://github.com/takuyaa/kuromoji.js/" target="_blank">kuromoji.js</a>を使用しています。
+            </div>
+            <div class="bottom_txt">
+                （<a href="https://github.com/kyurururn/enja/blob/main/README.md" target="_blank">詳細</a>）
+            </div>
+        </div>
+        <script src="js/tab_key.js"></script>
+        <script src="js/enja.js"></script>
+    </body>
+</html>
