@@ -497,7 +497,15 @@ const calculate = (array,type) => {
         stack.splice(0,2,stack[1] != stack[0]);
         break;
       case "NOT":
-        stack.splice(0,1,!stack[0])
+        if(typeof(stack[0]) == "number"){
+          let num = 1;
+          for(let i = stack[0]; i > 0; i--){
+            num *= i
+          }
+          stack.splice(0,1,num)
+        }else{
+          stack.splice(0,1,!stack[0])
+        }
         break;
       case "VARIABLE":
         if(array[i] in variable_value || toHalfwidth(array[i]).toLowerCase() in ini_variable_value){
