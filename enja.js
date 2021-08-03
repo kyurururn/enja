@@ -294,8 +294,14 @@ const poland = (array,type,priprity) => {
   let stack_array = [];
   let stack_ope = [];
   let stack_ope_array = [];
-
+  let pm_stack_type = [];
+  let pm_stack_array = [];
   for(let i = 0; i < type.length; i++){
+    if(stack.length == 0 && (type[i] == "PLUS" || type[i] == "MINUS")){
+      pm_stack_type.push(type[i])
+      pm_stack_array.push(array[i])
+      i++;
+    }
     if(type[i] == "NUMBER" || type[i] == "VARIABLE" || type[i] == "STRING" || type[i] == "BOOLEAN"){
       stack.push(type[i]);
       stack_array.push(array[i]);
@@ -397,9 +403,17 @@ const poland = (array,type,priprity) => {
       stack_ope.push(type[i]);
       stack_ope_array.push(array[i]);
     }
-  }
 
-  for(let i = 0; i < stack_ope.length; i++){
+    if(pm_stack_array.length == 1){
+      stack.push(pm_stack_type[0])
+      stack_array.push(pm_stack_array[0])
+
+      pm_stack_array.length = 0
+      pm_stack_type.length = 0
+    }
+  } 
+
+  for(var i = 0; i < stack_ope.length; i++){
     stack.push(stack_ope[i]);
     stack_array.push(stack_ope_array[i]);
   }
@@ -410,20 +424,20 @@ const poland = (array,type,priprity) => {
 const calculate = (array,type) => {
   let ini_variable_value = {"pi":Math.PI,
                             "円周率":Math.PI,
-                            "getfullyear":new Date().getFullYear(),
+                            "fullyear":new Date().getFullYear(),
                             "今年":new Date().getFullYear(),
-                            "getmonth":new Date().getMonth() + 1,
+                            "month":new Date().getMonth() + 1,
                             "今月":new Date().getMonth() + 1,
-                            "getdate":new Date().getDate(),
+                            "date":new Date().getDate(),
                             "今日":new Date().getDate(),
-                            "gethour":new Date().getHours(),
-                            "時間":new Date().getHours(),
-                            "getminute":new Date().getMinutes(),
-                            "分":new Date().getMinutes(),
-                            "getsecond":new Date().getSeconds(),
-                            "秒":new Date().getSeconds(),
-                            "getmillisecond":new Date().getMilliseconds(),
-                            "ミリ秒":new Date().getMilliseconds()}
+                            "hour":new Date().getHours(),
+                            "今時間":new Date().getHours(),
+                            "minute":new Date().getMinutes(),
+                            "今分":new Date().getMinutes(),
+                            "second":new Date().getSeconds(),
+                            "今秒":new Date().getSeconds(),
+                            "millisecond":new Date().getMilliseconds(),
+                            "今ミリ秒":new Date().getMilliseconds()}
   let stack = [];
   let judge = true;
   let i = -1;
@@ -432,29 +446,123 @@ const calculate = (array,type) => {
     i++;
     switch(type[i]){
       case "PLUS":
-        stack.splice(0,2,stack[1]+stack[0]);
+        if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+          for(let j = 0; j < stack[0].length; j++){
+            stack[0][j] = stack[1] + stack[0][j]
+          }
+          stack.splice(1,1);
+        }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+          for(let j = 0; j < stack[1].length; j++){
+            stack[1][j] += stack[0]
+          }
+          stack.splice(0,1);
+        }else{
+          stack.splice(0,2,stack[1]+stack[0]);
+        }
         break;
       case "MINUS":
         if(stack.length > 1){
-          stack.splice(0,2,stack[1]-stack[0]);
+          if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+            for(let j = 0; j < stack[0].length; j++){
+              stack[0][j] = stack[1] - stack[0][j]
+            }
+            stack.splice(1,1);
+          }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+            for(let j = 0; j < stack[1].length; j++){
+              stack[1][j] -= stack[0]
+            }
+            stack.splice(0,1);
+          }else{
+            stack.splice(0,2,stack[1]-stack[0]);
+          }
         }else{
-          stack.splice(0,1,0-stack[0]);
+          if(Array.isArray(stack[0])){
+            for(let j = 0; j < stack[0].length; j++){
+              stack[0][j] = 0-stack[0][j]
+            }
+          }else{
+            stack.splice(0,1,0-stack[0]);
+          }
         }
         break;
       case "MULTI":
-        stack.splice(0,2,stack[1]*stack[0]);
+        if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+          for(let j = 0; j < stack[0].length; j++){
+            stack[0][j] = stack[1] * stack[0][j]
+          }
+          stack.splice(1,1);
+        }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+          for(let j = 0; j < stack[1].length; j++){
+            stack[1][j] *= stack[0]
+          }
+          stack.splice(0,1);
+        }else if(typeof(stack[0]) == "number" && typeof(stack[1]) == "string"){
+          stack.splice(0,2,stack[1].repeat(stack[0]));
+        }else if(typeof(stack[1]) == "number" && typeof(stack[0]) == "string"){
+          stack.splice(0,2,stack[0].repeat(stack[1]));
+        }else{
+          stack.splice(0,2,stack[1]*stack[0]);
+        }
         break;
       case "DIVIS":
-        stack.splice(0,2,stack[1]/stack[0]);
+        if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+          for(let j = 0; j < stack[0].length; j++){
+            stack[0][j] = stack[1] / stack[0][j]
+          }
+          stack.splice(1,1);
+        }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+          for(let j = 0; j < stack[1].length; j++){
+            stack[1][j] /= stack[0]
+          }
+          stack.splice(0,1);
+        }else{
+          stack.splice(0,2,stack[1]/stack[0]);
+        }
         break;
       case "POWER":
-        stack.splice(0,2,stack[1]**stack[0]);
+        if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+          for(let j = 0; j < stack[0].length; j++){
+            stack[0][j] = stack[1] ** stack[0][j]
+          }
+          stack.splice(1,1);
+        }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+          for(let j = 0; j < stack[1].length; j++){
+            stack[1][j] **= stack[0]
+          }
+          stack.splice(0,1);
+        }else{
+          stack.splice(0,2,stack[1]**stack[0]);
+        }
         break;
       case "REMAINDE":
-        stack.splice(0,2,stack[1]%stack[0]);
+        if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+          for(let j = 0; j < stack[0].length; j++){
+            stack[0][j] = stack[1] % stack[0][j]
+          }
+          stack.splice(1,1);
+        }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+          for(let j = 0; j < stack[1].length; j++){
+            stack[1][j] %= stack[0]
+          }
+          stack.splice(0,1);
+        }else{
+          stack.splice(0,2,stack[1]%stack[0]);
+        }
         break;
       case "INT_QUOT":
-        stack.splice(0,2,Math.floor(stack[1]/stack[0]));
+        if(Array.isArray(stack[0]) && !Array.isArray(stack[1])){
+          for(let j = 0; j < stack[0].length; j++){
+            stack[0][j] = Math.floor(stack[1] / stack[0][j])
+          }
+          stack.splice(1,1);
+        }else if(!Array.isArray(stack[0]) && Array.isArray(stack[1])){
+          for(let j = 0; j < stack[1].length; j++){
+            stack[1][j] = Math.floor(stack[1][j] / stack[0])
+          }
+          stack.splice(0,1);
+        }else{
+          stack.splice(0,2,Math.floor(stack[1]/stack[0]));
+        }
         break;
       case "NUMBER":
         stack.unshift(array[i]);
@@ -500,7 +608,7 @@ const calculate = (array,type) => {
         if(typeof(stack[0]) == "number"){
           let num = 1;
           for(let i = stack[0]; i > 0; i--){
-            num *= i
+            num *= i;
           }
           stack.splice(0,1,num)
         }else{
@@ -660,12 +768,12 @@ const calculate = (array,type) => {
         break;
       case "BRACKET_S":
         let j = i;
-        judge = true;
+        judge_v = true;
         let result_array = [];
         let result_type = [];
         let start;
         let end;
-        while(judge){
+        while(judge_v){
           start = j + 1;
           let run = 1;
           while(run > 0 && j < array.length){
@@ -707,39 +815,36 @@ const calculate = (array,type) => {
           }
           let end = j;
           if(type[j] == "COMMA"){
-            judge = true;
+            judge_v = true;
           }else{
-            judge = false;
+            judge_v = false;
           }
           result_array.push(array.slice(start,end));
           result_type.push(type.slice(start,end));
         }
-        i = j;
+        i = j
         result = [];
         if(start-end != 0){
           for(let j = 0; j < result_type.length; j++){
             result.push(calculate(result_array[j],result_type[j]));
           }
         }
-
-
         stack.unshift(result);
-
         break;
       
       case "PERIOD":
         break;
 
       default:
-        judge = false;
         break;
     }
 
     if(i >= type.length){
       judge = false;
     }
-   
+
   }
+  
   
   while(stack.length >= 2){
     stack.splice(0,2,String(stack[1]) + String(stack[0]));
@@ -1550,20 +1655,20 @@ const enja = (txt) => {
                 "戻り値" :"RETURN",
                 "pi"    :"VARIABLE",
                 "円周率":"VARIABLE",
-                "getfullyear":"VARIABLE",
+                "year":"VARIABLE",
                 "今年"  :"VARIABLE",
-                "getmonth":"VARIABLE",
+                "month":"VARIABLE",
                 "今月"  :"VARIABLE",
-                "getdate":"VARIABLE",
+                "date":"VARIABLE",
                 "今日"  :"VARIABLE",
-                "gethour":"VARIABLE",
-                "時間"  :"VARIABLE",
-                "getminute":"VARIABLE",
-                "分":"VARIABLE",
-                "getsecond":"VARIABLE",
-                "秒":"VARIABLE",
-                "getmillisecond":"VARIABLE",
-                "ミリ秒":"VARIABLE",
+                "hour":"VARIABLE",
+                "今時間"  :"VARIABLE",
+                "minute":"VARIABLE",
+                "今分":"VARIABLE",
+                "second":"VARIABLE",
+                "今秒":"VARIABLE",
+                "millisecond":"VARIABLE",
+                "今ミリ秒":"VARIABLE",
                 "length":"FUNCTION",
                 "長さ"  :"FUNCTION",
                 "pop"   :"FUNCTION",
@@ -1600,7 +1705,7 @@ const enja = (txt) => {
                       "DIVIS":4,
                       "POWER":6,
                       "REMAINDE":5,
-                      "INT_QUAT":5,
+                      "INT_QUOT":5,
                       "EQUAL":2,
                       "GREATER":2,
                       "LESS":2,
@@ -1709,15 +1814,11 @@ const enja = (txt) => {
     }
     
   }
-  
 
   let result = enja_run(array,type);
 
-  
-
   return result;
 }
-
 
 const fs = require('fs');
 
