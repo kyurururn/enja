@@ -1630,12 +1630,18 @@ const enja = (txt) => {
                 "."     :"PERIOD",
                 "while" :"WHILE",
                 "繰り返し":"WHILE",
+                "繰返し":"WHILE",
+                "繰りかえし":"WHILE",
+                "くり返し":"WHILE",
+                "くりかえし":"WHILE",
                 "if"    :"IF",
                 "もし"  :"IF",
                 "elif"  :"ELIF",
                 "違えばもし":"ELIF",
+                "ちがえばもし":"ELIF",
                 "else"  :"ELSE",
                 "違えば" :"ELSE",
+                "ちがえば" :"ELSE",
                 "loop"  :"LOOP",
                 "ループ" :"LOOP",
                 "print" :"PRINT",
@@ -1652,7 +1658,10 @@ const enja = (txt) => {
                 "xor"   :"XOR",
                 "^^"    :"XOR",
                 "return":"RETURN",
-                "戻り値" :"RETURN",
+                "戻す" :"RETURN",
+                "もどす" :"RETURN",
+                "返す" :"RETURN",
+                "かえす" :"RETURN",
                 "pi"    :"VARIABLE",
                 "円周率":"VARIABLE",
                 "year":"VARIABLE",
@@ -1697,8 +1706,9 @@ const enja = (txt) => {
                 "string":"FUNCTION"
               }
   
-  let set_equal = ["while","繰り返し","if","もし","elif","違えばもし","print","プリント","log","ログ"];
+  let set_equal = ["while","繰り返し","if","もし","elif","違えばもし","print","プリント","log","ログ","戻す", "もどす", "返す", "かえす", "繰返し", "繰りかえし", "くり返し", "くりかえし", "もし", "ちがえばもし", "ちがえば"];
   
+
   let ope_priority = {"PLUS":3,
                       "MINUS":3,
                       "MULTI":4,
